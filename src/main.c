@@ -18,7 +18,6 @@ extern void __fastcall__ setVideoMode(char mode);
 extern void __fastcall__ drawPixelPair(void*);
 extern void __cdecl__ drawPixelPairStack(unsigned char x, unsigned char y, unsigned char color);
 
-
 pixel_pair pixel;
 
 void main(void){
@@ -34,8 +33,21 @@ void main(void){
     //setVideoMode(HIRES | SCREEN_3);
     
     
+    pixel.color=0x11;
+    pixel.y=0;
     
-	drawPixelPairStack(0x11,0x22,0x33);
+    for(z=0; z<14; z++) {
+    for(row=0; row<9; row++) {
+        for(col=0; col<128; col+=2) {
+            pixel.x=col;
+            drawPixelPair(&pixel);
+        }
+        pixel.y++;
+    }
+    pixel.color+=0x11;
+    }
+
+	drawPixelPairStack(10,20,0x00);
     
     while(1){}
 }
