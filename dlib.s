@@ -1,6 +1,10 @@
 .export _setVideoMode
 .export _drawPixelPair
+.export _drawPixelPairStack
 .exportzp _drawPixelPair_data: near
+
+.importzp  sp
+.import incsp3
 
 .zeropage
 _drawPixelPair_data: .res 2, $00 ;  Reserve a local zero page pointer
@@ -118,4 +122,22 @@ _drawPixelPair_screen: .res 2, $00 ;  Reserve a local zero page pointer for scre
     RTS
 .endproc
 
+.proc _drawPixelPairStack: near
+    LDA #$00
+	STA $df94
+	LDY #$00
+	LDA (sp), Y
+	STA $df93
+	INY
+	LDA (sp), Y
+	STA $df93
+	INY
+	LDA (sp), Y
+	STA $df93
+
+	; Remove args from stack
+	JSR incsp3
+
+	RTS
+.endproc
 
