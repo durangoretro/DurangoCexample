@@ -1,6 +1,7 @@
 .export _setVideoMode
 .export _drawPixelPair
 .export _drawPixelPairStack
+.export _debug_hex
 .exportzp _drawPixelPair_data: near
 
 .importzp  sp
@@ -123,22 +124,6 @@ _drawPixelPair_screen: .res 2, $00 ;  Reserve a local zero page pointer for scre
 .endproc
 
 .proc _drawPixelPairStack: near
-    LDA #$00
-	STA $df94
-	LDY #$00
-	LDA (sp), Y
-	STA $df93
-	INY
-	LDA (sp), Y
-	STA $df93
-	INY
-	LDA (sp), Y
-	STA $df93
-
-	
-
-
-
 	; Initialize screen position
     LDA #$60
     STA _drawPixelPair_screen+1
@@ -242,3 +227,9 @@ _drawPixelPair_screen: .res 2, $00 ;  Reserve a local zero page pointer for scre
 	RTS
 .endproc
 
+.proc _debug_hex: near
+    LDX #$00
+	STX $df94
+	STA $df93
+	RTS
+.endproc

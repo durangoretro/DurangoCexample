@@ -13,7 +13,7 @@ typedef struct{
 } pixel_pair;
 
 
-
+extern void __fastcall__ debug_hex(unsigned char value);
 extern void __fastcall__ setVideoMode(char mode);
 extern void __fastcall__ drawPixelPair(void*);
 extern void __cdecl__ drawPixelPairStack(unsigned char x, unsigned char y, unsigned char color);
